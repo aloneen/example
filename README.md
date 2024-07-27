@@ -1,244 +1,270 @@
-Example Project - README
-English:
+# Example Project
 
-Example Project
-This is a Spring Boot application that demonstrates a simple system for managing todos and users.
+Example Project is a Spring Boot application for managing todos and users. This application includes functionalities such as creating, updating, and deleting todos, as well as user registration and management.
 
-Features
-Todo Management:
+## Features
 
-Create, update, and complete todos.
-Associate todos with users.
-User Management:
+- **Todo Management**:
+  - Create, update, and complete todos.
+  - Associate todos with users.
 
-Register new users.
-Retrieve user details.
-Delete users.
-Technologies
-Spring Boot: For the main application framework.
-MySQL: For the database.
-JPA / Hibernate: For ORM and database interactions.
-Setup
-Clone the Repository
+- **User Management**:
+  - Register new users.
+  - Retrieve user details.
+  - Delete users.
 
-bash
-Копировать код
-git clone <repository-url>
-cd example-project
-Configure the Application
+## Requirements
 
-Update src/main/resources/application.properties with your database settings.
+- Java 17 or higher
+- Maven
+- MySQL or PostgreSQL
 
-properties
-Копировать код
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://localhost:3306/exampleforspring?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=Whocareswhoami708
-Build and Run
+## Installation
 
-bash
-Копировать код
-./mvnw spring-boot:run
-Access the Application
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/<your-github-username>/example-project.git
+    cd example-project
+    ```
 
-Open your web browser and go to http://localhost:8080 to access the application.
+2. **Configure the application**:
+    Update `src/main/resources/application.properties` with your database settings.
+    ```properties
+    spring.jpa.hibernate.ddl-auto=update
+    spring.datasource.url=jdbc:mysql://localhost:3306/exampleforspring?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    spring.datasource.username=root
+    spring.datasource.password=Whocareswhoami708
+    ```
 
-Docker Setup
-To run this application using Docker, you need to configure and start both the application and the PostgreSQL database. Here’s how:
+3. **Build and run the application**:
+    ```sh
+    ./mvnw spring-boot:run
+    ```
 
-Create a Dockerfile
+4. **Access the application**:
+    Open your browser and go to `http://localhost:8080`.
 
-Create a file named Dockerfile in the root of your project with the following content:
+## Docker Setup
 
-Dockerfile
-Копировать код
-FROM openjdk:17-jdk-slim
-VOLUME /tmp
-COPY target/example-project.jar example-project.jar
-ENTRYPOINT ["java","-jar","/example-project.jar"]
-Build the Docker Image
+To run this application using Docker:
 
-bash
-Копировать код
-docker build -t example-project .
-Configure Docker Compose
+1. **Create a Dockerfile**:
+    ```Dockerfile
+    FROM openjdk:17-jdk-slim
+    VOLUME /tmp
+    COPY target/example-project.jar example-project.jar
+    ENTRYPOINT ["java","-jar","/example-project.jar"]
+    ```
 
-Create a file named docker-compose.yml in the root of your project with the following content:
+2. **Build the Docker image**:
+    ```sh
+    docker build -t example-project .
+    ```
 
-yaml
-Копировать код
-version: '3.8'
+3. **Configure Docker Compose**:
+    Create a file named `docker-compose.yml`:
+    ```yaml
+    version: '3.8'
 
-services:
-  db:
-    container_name: postgres
-    image: postgres
-    environment:
-      POSTGRES_USER: seisen
-      POSTGRES_PASSWORD: Whocares?Whoami?
-      PGDATA: /data/postgres
+    services:
+      db:
+        container_name: postgres
+        image: postgres
+        environment:
+          POSTGRES_USER: seisen
+          POSTGRES_PASSWORD: Whocares?Whoami?
+          PGDATA: /data/postgres
+        volumes:
+          - db:/data/postgres
+        ports:
+          - "5332:5432"
+        networks:
+          - db
+        restart: unless-stopped
+
+      app:
+        image: example-project
+        ports:
+          - "8080:8080"
+        depends_on:
+          - db
+        networks:
+          - db
+
+    networks:
+      db:
+        driver: bridge
+
     volumes:
-      - db:/data/postgres
-    ports:
-      - "5332:5432"
+      db:
+    ```
+
+4. **Start the services**:
+    ```sh
+    docker-compose up
+    ```
+
+## API Endpoints
+
+### Users
+
+- **POST /users**: Register a new user.
+- **GET /users**: Retrieve user details by ID.
+- **DELETE /users/{id}**: Delete a user by ID.
+
+### Todos
+
+- **POST /todos**: Create a new todo.
+- **PUT /todos**: Update the completion status of a todo by ID.
+
+## Exceptions
+
+- **UserAlreadyExistException**: Thrown when trying to register a user that already exists.
+- **UserNotFoundException**: Thrown when trying to retrieve a user that does not exist.
+
+## Contributing
+
+Feel free to submit issues and pull requests. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+
+
+
+
+
+## Русская версия
+
+# Пример проекта
+
+Пример проекта — это приложение на Spring Boot для управления задачами (todos) и пользователями. В этом приложении реализованы функции создания, обновления и удаления задач, а также регистрация и управление пользователями.
+
+## Функционал
+
+- **Управление задачами**:
+  - Создание, обновление и выполнение задач.
+  - Связывание задач с пользователями.
+
+- **Управление пользователями**:
+  - Регистрация новых пользователей.
+  - Получение информации о пользователе.
+  - Удаление пользователей.
+
+## Требования
+
+- Java 17 или выше
+- Maven
+- MySQL или PostgreSQL
+
+## Установка
+
+1. **Клонируйте репозиторий**:
+    ```sh
+    git clone https://github.com/<ваше-имя-пользователя-на-github>/example-project.git
+    cd example-project
+    ```
+
+2. **Настройте приложение**:
+    Обновите `src/main/resources/application.properties` с вашими настройками базы данных.
+    ```properties
+    spring.jpa.hibernate.ddl-auto=update
+    spring.datasource.url=jdbc:mysql://localhost:3306/exampleforspring?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    spring.datasource.username=root
+    spring.datasource.password=Whocareswhoami708
+    ```
+
+3. **Соберите и запустите приложение**:
+    ```sh
+    ./mvnw spring-boot:run
+    ```
+
+4. **Доступ к приложению**:
+    Откройте браузер и перейдите по адресу `http://localhost:8080`.
+
+## Настройка Docker
+
+Чтобы запустить это приложение с помощью Docker:
+
+1. **Создайте Dockerfile**:
+    ```Dockerfile
+    FROM openjdk:17-jdk-slim
+    VOLUME /tmp
+    COPY target/example-project.jar example-project.jar
+    ENTRYPOINT ["java","-jar","/example-project.jar"]
+    ```
+
+2. **Соберите Docker-образ**:
+    ```sh
+    docker build -t example-project .
+    ```
+
+3. **Настройте Docker Compose**:
+    Создайте файл `docker-compose.yml`:
+    ```yaml
+    version: '3.8'
+
+    services:
+      db:
+        container_name: postgres
+        image: postgres
+        environment:
+          POSTGRES_USER: seisen
+          POSTGRES_PASSWORD: Whocares?Whoami?
+          PGDATA: /data/postgres
+        volumes:
+          - db:/data/postgres
+        ports:
+          - "5332:5432"
+        networks:
+          - db
+        restart: unless-stopped
+
+      app:
+        image: example-project
+        ports:
+          - "8080:8080"
+        depends_on:
+          - db
+        networks:
+          - db
+
     networks:
-      - db
-    restart: unless-stopped
+      db:
+        driver: bridge
 
-  app:
-    image: example-project
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    networks:
-      - db
-
-networks:
-  db:
-    driver: bridge
-
-volumes:
-  db:
-Start the Services
-
-bash
-Копировать код
-docker-compose up
-This will start both the PostgreSQL database and your Spring Boot application.
-
-API Endpoints
-Users
-POST /users: Register a new user.
-GET /users: Get user details by ID.
-DELETE /users/{id}: Delete a user by ID.
-Todos
-POST /todos: Create a new todo.
-PUT /todos: Complete a todo by ID.
-Exceptions
-UserAlreadyExistException: Thrown when trying to register a user that already exists.
-UserNotFoundException: Thrown when trying to retrieve a user that does not exist.
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Русский:
-
-Проект Example
-Это приложение на Spring Boot, демонстрирующее простую систему управления задачами и пользователями.
-
-Функции
-Управление задачами:
-
-Создание, обновление и завершение задач.
-Ассоциация задач с пользователями.
-Управление пользователями:
-
-Регистрация новых пользователей.
-Получение информации о пользователе.
-Удаление пользователей.
-Технологии
-Spring Boot: Основная платформа приложения.
-MySQL: Для базы данных.
-JPA / Hibernate: Для ORM и взаимодействия с базой данных.
-Настройка
-Клонировать Репозиторий
-
-bash
-Копировать код
-git clone <repository-url>
-cd example-project
-Настройте Приложение
-
-Обновите src/main/resources/application.properties с вашими настройками базы данных.
-
-properties
-Копировать код
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://localhost:3306/exampleforspring?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=Whocareswhoami708
-Сборка и Запуск
-
-bash
-Копировать код
-./mvnw spring-boot:run
-Доступ к Приложению
-
-Откройте ваш веб-браузер и перейдите по адресу http://localhost:8080, чтобы получить доступ к приложению.
-
-Docker Настройка
-Для запуска этого приложения с использованием Docker необходимо настроить и запустить как приложение, так и базу данных PostgreSQL. Вот как это сделать:
-
-Создайте Dockerfile
-
-Создайте файл с именем Dockerfile в корне вашего проекта со следующим содержимым:
-
-Dockerfile
-Копировать код
-FROM openjdk:17-jdk-slim
-VOLUME /tmp
-COPY target/example-project.jar example-project.jar
-ENTRYPOINT ["java","-jar","/example-project.jar"]
-Постройте Docker Образ
-
-bash
-Копировать код
-docker build -t example-project .
-Настройте Docker Compose
-
-Создайте файл с именем docker-compose.yml в корне вашего проекта со следующим содержимым:
-
-yaml
-Копировать код
-version: '3.8'
-
-services:
-  db:
-    container_name: postgres
-    image: postgres
-    environment:
-      POSTGRES_USER: seisen
-      POSTGRES_PASSWORD: Whocares?Whoami?
-      PGDATA: /data/postgres
     volumes:
-      - db:/data/postgres
-    ports:
-      - "5332:5432"
-    networks:
-      - db
-    restart: unless-stopped
+      db:
+    ```
 
-  app:
-    image: example-project
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    networks:
-      - db
+4. **Запустите сервисы**:
+    ```sh
+    docker-compose up
+    ```
 
-networks:
-  db:
-    driver: bridge
+## API Эндпоинты
 
-volumes:
-  db:
-Запустите Сервисы
+### Пользователи
 
-bash
-Копировать код
-docker-compose up
-Это запустит как базу данных PostgreSQL, так и ваше приложение Spring Boot.
+- **POST /users**: Регистрация нового пользователя.
+- **GET /users**: Получение информации о пользователе по ID.
+- **DELETE /users/{id}**: Удаление пользователя по ID.
 
-API Эндпоинты
-Пользователи
-POST /users: Регистрация нового пользователя.
-GET /users: Получение информации о пользователе по ID.
-DELETE /users/{id}: Удаление пользователя по ID.
-Задачи
-POST /todos: Создание новой задачи.
-PUT /todos: Завершение задачи по ID.
-Исключения
-UserAlreadyExistException: Выбрасывается при попытке зарегистрировать пользователя, который уже существует.
-UserNotFoundException: Выбрасывается при попытке получить информацию о пользователе, который не существует.
+### Задачи
+
+- **POST /todos**: Создание новой задачи.
+- **PUT /todos**: Обновление статуса выполнения задачи по ID.
+
+## Исключения
+
+- **UserAlreadyExistException**: Исключение, выбрасываемое при попытке зарегистрировать пользователя, который уже существует.
+- **UserNotFoundException**: Исключение, выбрасываемое при попытке получить информацию о пользователе, который не существует.
+
+## Участие
+
+Не стесняйтесь подавать проблемы и запросы на изменения. Для крупных изменений, пожалуйста, сначала откройте проблему, чтобы обсудить желаемые изменения.
+
+## Лицензия
+
+Этот проект лицензируется по лицензии MIT. См. файл [LICENSE](LICENSE) для получения подробностей.
