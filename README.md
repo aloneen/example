@@ -126,12 +126,6 @@ To run this application using Docker:
 
 Feel free to submit issues and pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-
-
 
 
 
@@ -264,7 +258,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Участие
 
 Не стесняйтесь подавать проблемы и запросы на изменения. Для крупных изменений, пожалуйста, сначала откройте проблему, чтобы обсудить желаемые изменения.
-
-## Лицензия
-
-Этот проект лицензируется по лицензии MIT. См. файл [LICENSE](LICENSE) для получения подробностей.
