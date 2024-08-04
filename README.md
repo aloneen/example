@@ -23,7 +23,7 @@ Example Project is a Spring Boot application for managing todos and users. This 
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/<your-github-username>/example-project.git
+    git clone https://github.com/aloneen/example-project.git
     cd example-project
     ```
 
@@ -156,7 +156,7 @@ Feel free to submit issues and pull requests. For major changes, please open an 
 
 1. **Клонируйте репозиторий**:
     ```sh
-    git clone https://github.com/<ваше-имя-пользователя-на-github>/example-project.git
+    git clone https://github.com/aloneen/example-project.git
     cd example-project
     ```
 
